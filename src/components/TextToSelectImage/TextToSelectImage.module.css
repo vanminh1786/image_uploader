@@ -1,0 +1,12 @@
+.wrapper {
+	text-align: center;
+	color: #7a7a7a;
+	margin-top: 10px;
+}
+.loader {
+	color: #00a6d8;
+}
+.loader:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
