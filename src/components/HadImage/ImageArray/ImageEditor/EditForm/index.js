@@ -31,7 +31,7 @@ function EditForm({ curRef, srcImage, title }) {
 				tmpArr.forEach((image) => {
 					if (image.name === title) {
 						image.title = newTitle
-						image.beDeletedAt = choice
+						image.beDeletedAt = choice === '' ? 'never' : choice
 					}
 				})
 				return tmpArr
