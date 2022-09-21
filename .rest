@@ -1,0 +1,9 @@
+POST http://localhost:8080/image
+content-type: application/json
+
+{
+    "files": {
+      "abc": "1"
+    },
+    "a": 5
+}

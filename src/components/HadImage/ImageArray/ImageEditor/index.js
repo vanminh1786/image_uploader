@@ -1,15 +1,14 @@
 import styles from './ImageEditor.module.css'
-import { useContext, useState } from 'react'
+import { useContext, useRef } from 'react'
 
-import { ImageContext } from '../ImageLoader'
-import EditForm from '../EditForm'
+import { ImageContext } from '../../../ImageLoader'
+import EditForm from './EditForm'
 
 function ImageEditor({ image }) {
 	const { setImages } = useContext(ImageContext)
-	const [isEditing, setIsEditing] = useState(false)
+	const form = useRef(null)
 
 	const srcImage = URL.createObjectURL(image)
-	console.log(image)
 
 	const deleteImage = () => {
 		setImages((preState) => {
@@ -20,7 +19,7 @@ function ImageEditor({ image }) {
 	}
 
 	const editImage = () => {
-		setIsEditing(true)
+		form.current.style.display = 'block'
 	}
 
 	return (
@@ -40,9 +39,9 @@ function ImageEditor({ image }) {
 				</div>
 			</div>
 
-			{isEditing ? (
-				<EditForm setIsEditing={setIsEditing} srcImage={srcImage} />
-			) : null}
+			<div style={{ display: 'none' }} ref={form}>
+				<EditForm curRef={form} srcImage={srcImage} title={image.name} />
+			</div>
 		</>
 	)
 }

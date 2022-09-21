@@ -1,20 +1,20 @@
 .description {
 	text-align: center;
-	color: #00a7da;
 	position: relative;
 }
 .broom {
 	position: absolute;
 	top: 0;
 	right: 20px;
-	color: #ccc;
-	font-size: 14px;
+	font-size: 12px;
 	cursor: pointer;
 }
 .broom span {
 	margin-left: 5px;
 }
 .icon {
+	color: #00a7da;
+	margin-top: 20px;
 	cursor: pointer;
 }
 .icon:hover .tooltip {
@@ -24,10 +24,9 @@
 	visibility: hidden;
 }
 .descriptionText {
-	color: #ccc;
 	font-size: 24px;
 	font-weight: 500;
-	margin-top: 10px;
+	margin-top: 20px;
 }
 .btnWrapper {
 	text-align: center;
@@ -39,6 +38,7 @@
 	background-color: #27ae61;
 	padding: 8px 16px;
 	border-radius: 3px;
+	border: none;
 	margin: 0 auto;
 	cursor: pointer;
 }

@@ -1,5 +1,5 @@
 import styles from './TextToSelectImage.module.css'
-import FormToAddByURL from '../FormToAddByURL'
+import FormToAddByURL from './FormToAddByURL'
 import { useState } from 'react'
 
 function TextToSelectImage(props) {

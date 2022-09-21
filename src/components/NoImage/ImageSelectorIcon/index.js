@@ -10,7 +10,7 @@ function ImageSelectorIcon(props) {
 			<div className={styles.icon}>
 				<i className="fa-solid fa-cloud-arrow-up fa-6x"></i>
 			</div>
-			<p className={styles.description}>Paste images here to upload</p>
+			<p className={styles.description}>Drag and paste images here to upload</p>
 		</div>
 	)
 }

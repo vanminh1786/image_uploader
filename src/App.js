@@ -5,7 +5,11 @@ import ImageLoader from './components/ImageLoader'
 
 function App() {
 	return (
-		<div className={styles.app}>
+		<div
+			className={styles.app}
+			onDragOver={(e) => e.preventDefault()}
+			onDrop={(e) => e.preventDefault()}
+		>
 			<Logo />
 			<div className={styles.content}>
 				<ImageLoader />

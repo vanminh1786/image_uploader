@@ -1,0 +1,37 @@
+.wrapper {
+	position: relative;
+	width: 110px;
+	height: 110px;
+	margin: 20px;
+	border: 1px solid rgb(184, 184, 184);
+	background-image: url('https://icon2.cleanpng.com/20180414/prw/kisspng-white-line-angle-white-background-5ad1d4679f4081.0666968615237008396523.jpg');
+	display: flex;
+	align-items: center;
+}
+.wrapper:hover .editBtn, .wrapper:hover .deleteBtn {
+	visibility: visible;
+}
+.image {
+	width: 100%;
+	height: 80%;
+	cursor: pointer;
+}
+.deleteBtn,
+.editBtn {
+	visibility: hidden;
+	position: absolute;
+	top: 0px;
+	padding: 5px;
+	border-radius: 50%;
+	color: white;
+	background-color: #7d7d7d;
+	cursor: pointer;
+}
+.deleteBtn {
+	font-size: 13px;
+	right: 0px;
+}
+.editBtn {
+	font-size: 12px;
+	right: 20px;
+}
