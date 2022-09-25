@@ -6,7 +6,7 @@ import { Hearts } from 'react-loader-spinner'
 import { ImageContext } from '../ImageLoader'
 import ImageArray from './ImageArray'
 
-function Icon({ uploaded, setLinks }) {
+function Icon({ uploaded, setLinks, hasError }) {
 	const input = useRef(null)
 	const { setImages } = useContext(ImageContext)
 
@@ -47,11 +47,11 @@ function Icon({ uploaded, setLinks }) {
 			</div>
 			{!uploaded ? (
 				<>
-					<span className={styles.icon} onClick={addImage}>
+					<span className={styles.icon} style={{ color: '#00a7dd' }} onClick={addImage}>
 						<i className="fa-solid fa-table-cells-large fa-6x"></i>
 						<p className={styles.tooltip}>Add image</p>
 					</span>
-					<p className={styles.descriptionText}>
+					<p className={styles.descriptionText} style={{ color: '#00a7dd' }}>
 						Edit any image by clicking the image preview
 					</p>
 					<input
@@ -63,10 +63,18 @@ function Icon({ uploaded, setLinks }) {
 					/>
 				</>
 			) : (
-				<span className={styles.icon} styles={{ color: '#27ae61' }}>
-					<i className="fa-solid fa-circle-check fa-6x"></i>
-					<p className={styles.descriptionText}>Upload complete</p>
-				</span>
+				<>
+					{!hasError ? 
+						<span className={styles.icon} style={{ color: '#00a7dd' }}>
+							<i className="fa-solid fa-circle-check fa-6x"></i>
+							<p className={styles.descriptionText}>Upload complete</p>
+						</span> : 
+						<span className={styles.icon} style={{ color: 'red' }}>
+						<i className="fa-solid fa-circle-xmark fa-6x"></i>
+						<p className={styles.descriptionText}>Upload failed</p>
+					</span>
+					}
+				</>
 			)}
 		</div>
 	)
@@ -75,6 +83,7 @@ function Icon({ uploaded, setLinks }) {
 function HadImage() {
 	const { images } = useContext(ImageContext)
 	const [isUploading, setIsUploading] = useState(false)
+	const [hasError, setHasError] = useState(false)
 	const [links, setLinks] = useState([])
 	const indexOfCurrentImage = useRef(0)
 	const uploaded = useRef(false)
@@ -87,15 +96,17 @@ function HadImage() {
 		}
 
 		setIsUploading(true)
+		const currentImage = images[indexOfCurrentImage.current]
+		
 		axios({
 			method: 'post',
-			url: 'http://localhost:8080/public/shopify/image/upload',
-			data: images[indexOfCurrentImage.current],
+			url: ((!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? 'http://localhost:8080' : 'https://apps.pagefly.io') + '/api/public/pagefly/image/upload',
+			data: currentImage,
 			headers: {
 				'content-type': 'multipart/form-data',
-				title: images[indexOfCurrentImage.current].title,
-				name: images[indexOfCurrentImage.current].name,
-				time: images[indexOfCurrentImage.current].beDeletedAt,
+				title: currentImage.title,
+				name: currentImage.name,
+				time: currentImage.beDeletedAt,
 			},
 		})
 			.then((res) => {
@@ -104,7 +115,9 @@ function HadImage() {
 				uploadImages()
 				setLinks((preState) => [...preState, res.data.imageLink])
 			})
-			.catch((err) => console.log(err))
+			.catch(() => {
+				setHasError(true)
+			})
 			.finally(() => {
 				uploaded.current = true
 				setIsUploading(false)
@@ -115,7 +128,7 @@ function HadImage() {
 		<>
 			{!isUploading ? (
 				<>
-					<Icon uploaded={uploaded.current} setLinks={setLinks} />
+					<Icon uploaded={uploaded.current} setLinks={setLinks} hasError={hasError} />
 					<ImageArray links={links} />
 					{!uploaded.current && (
 						<div className={styles.btnWrapper} onClick={uploadImages}>
