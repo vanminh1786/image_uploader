@@ -95,7 +95,7 @@ function HadImage() {
 			return
 		}
 
-		setIsUploading(true)
+		if (!isUploading) setIsUploading(true)
 		const currentImage = images[indexOfCurrentImage.current]
 		
 		axios({
